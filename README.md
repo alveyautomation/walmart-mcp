@@ -1,6 +1,6 @@
-# walmart-mcp
+﻿# walmart-mcp
 
-> A Model Context Protocol server for Walmart Marketplace. Plug Claude into your catalog, inventory, orders, pricing, and settlement reports — read-only, in five minutes.
+> A Model Context Protocol server for Walmart Marketplace. Plug Claude into your catalog, inventory, orders, pricing, and settlement reports â€” read-only, in five minutes.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
@@ -8,7 +8,7 @@
 
 ## Why this exists
 
-Walmart Marketplace's REST API is well-documented but unbranded — every team that automates against it ends up writing the same RSA-signing-and-pagination glue from scratch.
+Walmart Marketplace's REST API is well-documented but unbranded â€” every team that automates against it ends up writing the same RSA-signing-and-pagination glue from scratch.
 
 If you use Claude (or any MCP-aware AI assistant) to operate ecommerce day-to-day, that gap is the difference between *"summarize today's Walmart orders"* working out of the box and *"summarize today's Walmart orders"* requiring a custom integration.
 
@@ -46,7 +46,7 @@ Write endpoints (acknowledge order, ship order, update inventory, update price) 
 pip install walmart-mcp
 ```
 
-> v0.1 ships from this repository. PyPI publication is pending — for now, install with `pip install git+<repo URL TBD post-launch>` or clone and run `pip install -e .` locally.
+> v0.1 ships from this repository. PyPI publication is pending â€” for now, install with `pip install git+https://github.com/alveyautomation/walmart-mcp` or clone and run `pip install -e .` locally.
 
 ## Configure credentials
 
@@ -62,9 +62,9 @@ WALMART_HTTP_TIMEOUT=60                  # optional, seconds
 WALMART_MAX_RETRIES=3                    # optional
 ```
 
-Multi-line PEM keys can be passed with literal `\n` escapes — the server unescapes them at startup, so you don't need to fight your process manager's quoting rules.
+Multi-line PEM keys can be passed with literal `\n` escapes â€” the server unescapes them at startup, so you don't need to fight your process manager's quoting rules.
 
-> **Use a read-only Walmart integration profile.** v0.1 only calls `GET` endpoints, but defense in depth means you should hand the server a key tied to a profile that *cannot* modify anything. When v0.2 lands with write tools, opt-in by upgrading the profile — never the other way around.
+> **Use a read-only Walmart integration profile.** v0.1 only calls `GET` endpoints, but defense in depth means you should hand the server a key tied to a profile that *cannot* modify anything. When v0.2 lands with write tools, opt-in by upgrading the profile â€” never the other way around.
 
 ## Wire into Claude Code
 
@@ -145,7 +145,7 @@ walmart_search_orders(
 )
 ```
 
-Pagination is handled transparently — Walmart returns a `nextCursor` token in `list.meta.nextCursor`; the tool follows it until empty or until `limit` is reached. The response includes `limit_reached: true` when there were more orders than `limit` allowed.
+Pagination is handled transparently â€” Walmart returns a `nextCursor` token in `list.meta.nextCursor`; the tool follows it until empty or until `limit` is reached. The response includes `limit_reached: true` when there were more orders than `limit` allowed.
 
 ### `walmart_get_order`
 
@@ -163,9 +163,9 @@ walmart_get_inventory(sku: str)
 
 The returned record includes:
 
-- `quantity.amount` — current sellable units
-- `quantity.unit` — unit of measure (typically `EACH`)
-- `fulfillmentLagTime` — days between order and ship (per Walmart's offer terms)
+- `quantity.amount` â€” current sellable units
+- `quantity.unit` â€” unit of measure (typically `EACH`)
+- `fulfillmentLagTime` â€” days between order and ship (per Walmart's offer terms)
 
 ### `walmart_get_pricing`
 
@@ -186,7 +186,7 @@ Per-report settlement / reconciliation detail. Useful for reconciling Walmart pa
 ## Local development
 
 ```bash
-git clone <repo URL TBD post-launch>
+git clone https://github.com/alveyautomation/walmart-mcp
 cd walmart-mcp
 python -m venv .venv && source .venv/bin/activate    # Windows: .venv\Scripts\activate
 pip install -e ".[dev]"
@@ -204,15 +204,15 @@ Integration tests against a real Walmart Marketplace sandbox account are gated b
 
 ## Troubleshooting
 
-**`Failed to parse WALMART_PRIVATE_KEY`** — the PEM body did not load. Most common cause: newlines were stripped by the shell or process manager. Try templating with literal `\n` escapes (the server unescapes them at startup) or load from a file via your env-var system.
+**`Failed to parse WALMART_PRIVATE_KEY`** â€” the PEM body did not load. Most common cause: newlines were stripped by the shell or process manager. Try templating with literal `\n` escapes (the server unescapes them at startup) or load from a file via your env-var system.
 
-**`Missing required environment variables`** — the server tried to start before its `.env` was loaded. Either export the vars in the parent shell, or ensure your MCP host config includes them in the `env` block.
+**`Missing required environment variables`** â€” the server tried to start before its `.env` was loaded. Either export the vars in the parent shell, or ensure your MCP host config includes them in the `env` block.
 
-**`HTTP 401` on every call** — usually a clock-skew problem. Walmart's signature includes a millisecond timestamp; if your host clock is more than a few minutes off, signatures will be rejected. Check NTP.
+**`HTTP 401` on every call** â€” usually a clock-skew problem. Walmart's signature includes a millisecond timestamp; if your host clock is more than a few minutes off, signatures will be rejected. Check NTP.
 
-**`HTTP 403` on specific endpoints** — your integration profile lacks the `read` scope for that resource. Adjust the profile in Walmart Seller Center.
+**`HTTP 403` on specific endpoints** â€” your integration profile lacks the `read` scope for that resource. Adjust the profile in Walmart Seller Center.
 
-**Pagination feels slow** — Walmart caps order page size at 200 and uses cursor-based pagination. For large date windows, expect multiple round-trips.
+**Pagination feels slow** â€” Walmart caps order page size at 200 and uses cursor-based pagination. For large date windows, expect multiple round-trips.
 
 ## Contributing
 
@@ -221,12 +221,13 @@ Issues and pull requests welcome. Please:
 - Run `pytest` before opening a PR (`pip install -e ".[dev]"`).
 - Run `pre-commit run --all-files`.
 - Keep additions to v0.1 scope read-only. Write endpoints land in v0.2.
-- Synthetic data only in tests — no real SKUs, customer names, or order numbers.
+- Synthetic data only in tests â€” no real SKUs, customer names, or order numbers.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT â€” see [LICENSE](LICENSE).
 
 ## Disclaimer
 
 `walmart-mcp` is an unofficial, third-party integration. It is **not endorsed by, affiliated with, or supported by Walmart Inc.** "Walmart" and "Walmart Marketplace" are trademarks of Walmart Inc. Use at your own risk; verify behavior against your seller account before depending on it for production decisions.
+
