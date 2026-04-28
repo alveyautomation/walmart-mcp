@@ -1,13 +1,13 @@
 """HTTP client for the Walmart Marketplace REST API.
 
 The client wraps the public REST surface Walmart Marketplace exposes at
-`marketplace.walmartapis.com`. Auth is signed-request based — every call
+`marketplace.walmartapis.com`. Auth is signed-request based, every call
 attaches a fresh `WM_SEC.AUTH_SIGNATURE` header computed from the consumer
 ID, request URL, HTTP method, and a millisecond timestamp, signed with the
 seller's RSA private key (PKCS#8, SHA-256).
 
 The client is deliberately small and dependency-light: only `requests` and
-`cryptography` are required at runtime. State is per-instance — there is no
+`cryptography` are required at runtime. State is per-instance, there is no
 module-level mutable state, so multiple clients can run in the same process
 against different sellers without interfering.
 

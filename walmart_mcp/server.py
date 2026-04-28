@@ -23,8 +23,7 @@ logger = logging.getLogger(__name__)
 
 mcp = FastMCP("walmart-mcp")
 
-# Lazy singletons. We don't want to require credentials at import time —
-# the MCP host may launch the server with a degenerate environment for
+# Lazy singletons. We don't want to require credentials at import time, # the MCP host may launch the server with a degenerate environment for
 # capability discovery.
 _settings: Optional[Settings] = None
 _client: Optional[WalmartClient] = None
@@ -258,7 +257,7 @@ def walmart_get_settlement_report(report_id: str) -> str:
 
 
 def main() -> None:
-    """CLI entry point — runs the MCP server over stdio."""
+    """CLI entry point, runs the MCP server over stdio."""
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s %(levelname)s %(name)s %(message)s",

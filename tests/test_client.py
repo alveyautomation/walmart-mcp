@@ -1,6 +1,6 @@
 """Tests for the Walmart Marketplace HTTP client.
 
-All tests use a mocked `requests.Session` — no live HTTP, no real
+All tests use a mocked `requests.Session`, no live HTTP, no real
 credentials. Synthetic fixtures defined in tests/fixtures.py.
 """
 
@@ -75,7 +75,7 @@ def test_signature_is_base64_and_verifies(test_private_key_pem):
     # Valid base64
     sig_bytes = base64.b64decode(sig_b64)
 
-    # Verify with the matching public key — should not raise
+    # Verify with the matching public key, should not raise
     string_to_sign = f"{SANDBOX_CONSUMER_ID}\n{url}\nGET\n{timestamp}\n"
     pk.public_key().verify(
         sig_bytes,

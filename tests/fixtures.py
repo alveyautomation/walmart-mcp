@@ -1,7 +1,7 @@
 """Synthetic fixtures used across the test suite.
 
 All identifiers, names, and SKUs are invented for testing. Any resemblance
-to a real Walmart Marketplace seller is coincidental — this file must
+to a real Walmart Marketplace seller is coincidental, this file must
 never gain real-world identifiers.
 """
 
@@ -190,7 +190,7 @@ SAMPLE_SETTLEMENT_REPORT = {
 def generate_test_private_key_pem() -> str:
     """Generate a fresh RSA-2048 PEM for testing.
 
-    Test-only key — never use in production. Generated per-call so test
+    Test-only key, never use in production. Generated per-call so test
     runs do not depend on a checked-in key file.
     """
     from cryptography.hazmat.primitives import serialization
